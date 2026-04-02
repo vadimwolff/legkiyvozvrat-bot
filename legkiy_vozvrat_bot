@@ -654,7 +654,7 @@ def build_opening_text(user_row, bot_username: str) -> str:
     lines = [
         "👋 <b>ЛегкийВозврат Эксперт</b> — бот для быстрого создания официальной претензии по ЗоЗПП.",
         "",
-        "🧠 Я задаю вопросы по шагам и собираю текст без внешних API и без OpenAI.",
+        "",
         "",
         f"{format_balance(user_row)}",
     ]
