@@ -292,8 +292,8 @@
     </div>
   </div>
   <div class="route-wrap">
-    <iframe class="hero-map" src="https://www.google.com/maps?q=56.294832,37.607871&z=16&output=embed" width="100%" height="260" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="ReinMarket на карте"></iframe>
-    <a class="map-fallback" href="https://www.google.com/maps?q=56.294832,37.607871" target="_blank" rel="noopener">Открыть в Google Maps →</a>
+    <iframe class="hero-map" src="https://www.google.com/maps?q=56.294426,37.608713&z=16&output=embed" width="100%" height="260" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="ReinMarket на карте"></iframe>
+    <a class="map-fallback" href="https://www.google.com/maps?q=56.294426,37.608713" target="_blank" rel="noopener">Открыть в Google Maps →</a>
   </div>
 </section>
 
@@ -312,8 +312,8 @@
   <div class="info-card">
     <span class="label">Адрес и самовывоз</span>
     <h3>Забрать заказ самим</h3>
-    <p>Россия, Московская область, СНТ Горки-Р, дом 163. Бесплатно, обычно готово в течение дня.</p>
-    <p><a href="https://www.google.com/maps?q=56.294832,37.607871" target="_blank" rel="noopener" style="color:var(--berry); font-weight:700; text-decoration:none;">Открыть на карте →</a></p>
+    <p>Россия, Московская область, СНТ Горки-Р, 5-й проезд, дом 148. Бесплатно, обычно готово в течение дня.</p>
+    <p><a href="https://www.google.com/maps?q=56.294426,37.608713" target="_blank" rel="noopener" style="color:var(--berry); font-weight:700; text-decoration:none;">Открыть на карте →</a></p>
     <span class="label" style="margin-top:16px; display:block;">Доставка по СНТ</span>
     <p>200 ₽ за доставку до вашего участка — просто укажите номер проезда и дома при оформлении заказа.</p>
   </div>
@@ -330,7 +330,7 @@
   <div class="footer-grid">
     <div>
       <div class="logo"><span class="accent">R</span>ein<span class="accent">M</span>arket</div>
-      <small>Россия, Московская область, СНТ Горки-Р, дом 163</small>
+      <small>Россия, Московская область, СНТ Горки-Р, 5-й проезд, дом 148</small>
       <small>+7 985 150-41-03 · Пн–Пт, 10:00–20:30 (МСК)</small>
     </div>
     <button class="dev-btn" id="devBtn">Для разработчиков</button>
@@ -992,7 +992,7 @@ function renderDevOrders(){
     const itemsHtml = o.items.map(it=>`<li>${it.name} × ${it.qty} — ${fmt(it.lineTotal)}</li>`).join("");
     const deliveryHtml = o.deliveryType === 'delivery'
       ? `<div class="order-meta">Доставка: ${o.address.proezd}, дом ${o.address.dom} (+${fmt(o.fee)})</div>`
-      : `<div class="order-meta">Самовывоз (СНТ Горки-Р, дом 163)</div>`;
+      : `<div class="order-meta">Самовывоз (СНТ Горки-Р, 5-й проезд, дом 148)</div>`;
     card.innerHTML = `
       <div class="order-head">
         <span class="order-id">Заказ №${o.id.substring(0,8)}</span>
