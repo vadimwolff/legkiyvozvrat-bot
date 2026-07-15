@@ -459,7 +459,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-/* ===================== STATE (в памяти, без localStorage) ===================== */
+/* ===================== STATE (сохраняется в localStorage браузера) ===================== */
 let products = [
   {id:1, name:"Помидоры грунтовые", price:180, unit:"за кг", category:"Овощи и фрукты", emoji:"🍅", img:null, desc:"Сладкие грунтовые томаты с соседней теплицы."},
   {id:2, name:"Огурцы свежие", price:150, unit:"за кг", category:"Овощи и фрукты", emoji:"🥒", img:null, desc:"Хрустящие огурцы, собраны сегодня утром."},
@@ -477,6 +477,43 @@ let cart = []; // {productId, qty}
 let orders = [];
 let nextOrderId = 1;
 let activeCategory = "Все";
+
+const STORAGE_KEYS = {
+  products:"reinmarket_products",
+  orders:"reinmarket_orders",
+  nextProductId:"reinmarket_nextProductId",
+  nextOrderId:"reinmarket_nextOrderId"
+};
+
+function saveProducts(){
+  try{
+    localStorage.setItem(STORAGE_KEYS.products, JSON.stringify(products));
+    localStorage.setItem(STORAGE_KEYS.nextProductId, String(nextProductId));
+  }catch(e){ console.error("Не удалось сохранить товары:", e); }
+}
+function saveOrders(){
+  try{
+    const serializable = orders.map(o=>({...o, date:o.date.toISOString()}));
+    localStorage.setItem(STORAGE_KEYS.orders, JSON.stringify(serializable));
+    localStorage.setItem(STORAGE_KEYS.nextOrderId, String(nextOrderId));
+  }catch(e){ console.error("Не удалось сохранить заказы:", e); }
+}
+function loadState(){
+  try{
+    const savedProducts = localStorage.getItem(STORAGE_KEYS.products);
+    if(savedProducts){ products = JSON.parse(savedProducts); }
+    const savedNextProductId = localStorage.getItem(STORAGE_KEYS.nextProductId);
+    if(savedNextProductId){ nextProductId = parseInt(savedNextProductId); }
+    const savedOrders = localStorage.getItem(STORAGE_KEYS.orders);
+    if(savedOrders){
+      orders = JSON.parse(savedOrders).map(o=>({...o, date:new Date(o.date)}));
+    }
+    const savedNextOrderId = localStorage.getItem(STORAGE_KEYS.nextOrderId);
+    if(savedNextOrderId){ nextOrderId = parseInt(savedNextOrderId); }
+  }catch(e){
+    console.error("Не удалось загрузить сохранённые данные:", e);
+  }
+}
 
 /* ===================== HELPERS ===================== */
 function fmt(n){ return n.toLocaleString('ru-RU') + " ₽"; }
@@ -705,6 +742,7 @@ document.getElementById('submitOrderBtn').addEventListener('click', ()=>{
     total: subtotal+fee
   };
   orders.push(order);
+  saveOrders();
 
   cart = [];
   updateCartCount();
@@ -773,6 +811,7 @@ document.getElementById('addProductBtn').addEventListener('click', ()=>{
       emoji, img: imgData || null, desc
     };
     products.push(newProduct);
+    saveProducts();
     activeCategory = "Все";
     renderCategoryFilters();
     renderCatalog();
@@ -811,6 +850,7 @@ function renderDevProducts(){
   wrap.querySelectorAll('[data-delprod]').forEach(b=>{
     b.addEventListener('click', ()=>{
       products = products.filter(p=>p.id !== parseInt(b.dataset.delprod));
+      saveProducts();
       renderDevProducts();
       renderCategoryFilters();
       renderCatalog();
@@ -852,12 +892,14 @@ function renderDevOrders(){
   wrap.querySelectorAll('[data-delorder]').forEach(b=>{
     b.addEventListener('click', ()=>{
       orders = orders.filter(o=>o.id !== parseInt(b.dataset.delorder));
+      saveOrders();
       renderDevOrders();
     });
   });
 }
 
 /* ===================== INIT ===================== */
+loadState();
 renderCategoryFilters();
 renderCatalog();
 updateCartCount();
