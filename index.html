@@ -629,10 +629,10 @@ function renderCatalog(){
     grid.appendChild(card);
   });
   grid.querySelectorAll('[data-add]').forEach(btn=>{
-    btn.addEventListener('click', ()=> addToCart(parseInt(btn.dataset.add)));
+    btn.addEventListener('click', ()=> addToCart(btn.dataset.add));
   });
   grid.querySelectorAll('[data-detail]').forEach(el=>{
-    el.addEventListener('click', ()=> openProductDetail(parseInt(el.dataset.detail)));
+    el.addEventListener('click', ()=> openProductDetail(el.dataset.detail));
   });
 }
 
@@ -713,16 +713,16 @@ function renderCartModal(){
   });
 
   wrap.querySelectorAll('[data-inc]').forEach(b=>b.addEventListener('click', ()=>{
-    const it = cart.find(c=>c.productId===parseInt(b.dataset.inc)); it.qty+=1;
+    const it = cart.find(c=>c.productId===b.dataset.inc); it.qty+=1;
     renderCartModal(); updateCartCount(); renderCatalog();
   }));
   wrap.querySelectorAll('[data-dec]').forEach(b=>b.addEventListener('click', ()=>{
-    const it = cart.find(c=>c.productId===parseInt(b.dataset.dec));
+    const it = cart.find(c=>c.productId===b.dataset.dec);
     it.qty-=1; if(it.qty<=0) cart = cart.filter(c=>c.productId!==it.productId);
     renderCartModal(); updateCartCount(); renderCatalog();
   }));
   wrap.querySelectorAll('[data-remove]').forEach(b=>b.addEventListener('click', ()=>{
-    cart = cart.filter(c=>c.productId!==parseInt(b.dataset.remove));
+    cart = cart.filter(c=>c.productId!==b.dataset.remove);
     renderCartModal(); updateCartCount(); renderCatalog();
   }));
 
@@ -836,7 +836,16 @@ document.getElementById('submitOrderBtn').addEventListener('click', async ()=>{
 });
 
 /* ===================== DEV: password gate ===================== */
-const DEV_PASSWORD = "VadimWolffPro";
+/* Пароль не хранится в открытом виде — сравнивается его хэш */
+const DEV_PASSWORD_HASH = "aae34325";
+function simpleHash(str){
+  let hash = 5381;
+  for(let i=0; i<str.length; i++){
+    hash = ((hash << 5) + hash) + str.charCodeAt(i);
+    hash = hash & 0xFFFFFFFF;
+  }
+  return (hash >>> 0).toString(16);
+}
 document.getElementById('devBtn').addEventListener('click', ()=>{
   document.getElementById('devPasswordInput').value="";
   document.getElementById('devPassError').textContent="";
@@ -848,7 +857,7 @@ document.getElementById('devPasswordInput').addEventListener('keydown', (e)=>{
 });
 function checkDevPassword(){
   const val = document.getElementById('devPasswordInput').value;
-  if(val === DEV_PASSWORD){
+  if(simpleHash(val) === DEV_PASSWORD_HASH){
     closeOverlay('devPassOverlay');
     openOverlay('devDashOverlay');
     renderDevProducts();
