@@ -453,7 +453,7 @@
         <textarea id="newProdDesc" placeholder="Короткое описание товара"></textarea>
       </div>
       <div class="field">
-        <label>Картинка (необязательно, любого размера)</label>
+        <label>Картинка (необязательно, любого размера — сайт сам сожмёт)</label>
         <input type="file" id="newProdImage" accept="image/*">
       </div>
       <div class="field">
@@ -477,15 +477,13 @@
 
 <div class="toast" id="toast"></div>
 
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-storage-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 
 <script>
 /* ===================== FIREBASE INIT ===================== */
 let firebaseReady = false;
 let db = null;
-let storage = null;
 try{
   const firebaseConfig = {
     apiKey: "AIzaSyB1-tmhPas4e0yHpYVXtCDBRyrFej4fHVo",
@@ -497,7 +495,6 @@ try{
   };
   firebase.initializeApp(firebaseConfig);
   db = firebase.firestore();
-  storage = firebase.storage();
   firebaseReady = true;
 }catch(e){
   console.error("Firebase не инициализирован:", e);
@@ -564,6 +561,43 @@ function adjustStock(productId, delta){
   if(firebaseReady && !String(productId).startsWith('local-')){
     db.collection('products').doc(productId).update({stock:p.stock}).catch(err=>console.error("Ошибка обновления наличия:", err));
   }
+}
+
+/* --- Сжатие фото прямо в браузере, чтобы фото любого размера бесплатно помещалось в Firestore --- */
+function compressImageOnce(file, maxDim, quality){
+  return new Promise((resolve, reject)=>{
+    const reader = new FileReader();
+    reader.onload = (e)=>{
+      const img = new Image();
+      img.onload = ()=>{
+        let width = img.width, height = img.height;
+        if(width > maxDim || height > maxDim){
+          if(width > height){ height = Math.round(height * maxDim / width); width = maxDim; }
+          else{ width = Math.round(width * maxDim / height); height = maxDim; }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width; canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.onerror = ()=> reject(new Error("Не удалось прочитать изображение"));
+      img.src = e.target.result;
+    };
+    reader.onerror = ()=> reject(new Error("Не удалось прочитать файл"));
+    reader.readAsDataURL(file);
+  });
+}
+async function compressImageToFit(file, maxBytes){
+  let maxDim = 1200, quality = 0.75;
+  for(let attempt=0; attempt<5; attempt++){
+    const dataUrl = await compressImageOnce(file, maxDim, quality);
+    const approxBytes = dataUrl.length * 0.75;
+    if(approxBytes <= maxBytes) return dataUrl;
+    maxDim = Math.round(maxDim * 0.8);
+    quality = Math.max(0.35, quality - 0.15);
+  }
+  return await compressImageOnce(file, 500, 0.35);
 }
 
 document.querySelectorAll('[data-close]').forEach(btn=>{
@@ -981,9 +1015,9 @@ document.getElementById('addProductBtn').addEventListener('click', ()=>{
     errBox.textContent = "Заполните название, категорию и корректную цену.";
     return;
   }
-  const MAX_IMAGE_BYTES = 8 * 1024 * 1024; // 8 МБ
+  const MAX_IMAGE_BYTES = 20 * 1024 * 1024; // 20 МБ — исходный файл до сжатия, дальше сайт сам его уменьшит
   if(fileInput.files && fileInput.files[0] && fileInput.files[0].size > MAX_IMAGE_BYTES){
-    errBox.textContent = "Картинка слишком большая (макс. 8 МБ).";
+    errBox.textContent = "Картинка слишком большая (макс. 20 МБ).";
     return;
   }
 
@@ -1035,27 +1069,19 @@ document.getElementById('addProductBtn').addEventListener('click', ()=>{
 
   const file = fileInput.files && fileInput.files[0];
 
-  if(file && firebaseReady && storage){
-    // Большие фото храним в Firebase Storage, а не в самом документе Firestore
-    // (у документа Firestore лимит ~1 МБ, поэтому картинки весом в несколько МБ там не поместятся)
+  if(file){
     addBtn.disabled = true;
-    addBtn.textContent = "Загружаем фото...";
-    const safeName = Date.now() + "_" + file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-    const fileRef = storage.ref().child('products/' + safeName);
-    fileRef.put(file)
-      .then(()=> fileRef.getDownloadURL())
-      .then(url=> finalizeAdd(url))
+    addBtn.textContent = "Обрабатываем фото...";
+    // Firestore бесплатно хранит документы до ~1 МБ, поэтому сжимаем фото любого размера
+    // прямо в браузере перед сохранением — без платных сервисов
+    compressImageToFit(file, 700*1024)
+      .then(dataUrl=> finalizeAdd(dataUrl))
       .catch(err=>{
-        console.error("Ошибка загрузки фото:", err);
-        errBox.textContent = "Не удалось загрузить фото. Проверьте правила доступа Firebase Storage.";
+        console.error("Ошибка обработки фото:", err);
+        errBox.textContent = "Не удалось обработать фото. Попробуйте другой файл или добавьте товар без фото.";
         addBtn.disabled = false;
         addBtn.textContent = "Добавить товар";
       });
-  } else if(file){
-    // Нет подключения к Firebase — храним фото только в памяти этого устройства
-    const reader = new FileReader();
-    reader.onload = (e)=> finalizeAdd(e.target.result);
-    reader.readAsDataURL(file);
   } else {
     finalizeAdd(null);
   }
