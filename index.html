@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ReinMarket — свежие продукты для вашего СНТ</title>
+<title>ReinMarket — свежие продукты в вашем СНТ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -97,6 +97,7 @@
   }
   .btn-secondary:hover{background:var(--pine); color:#fff;}
 
+  /* signature route graphic */
   .route-wrap{
     position:relative; background:var(--pine); border-radius:22px;
     padding:26px; box-shadow:var(--shadow); overflow:hidden;
@@ -167,6 +168,7 @@
   .info-card .label{font-family:'IBM Plex Mono',monospace; font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--berry); font-weight:700; display:block; margin-bottom:8px;}
   .info-card p{margin:0 0 14px; color:#3a3c34;}
   .info-card p:last-child{margin-bottom:0;}
+  .map-embed{border-radius:12px; margin-top:14px; display:block;}
 
   /* ---------- Footer ---------- */
   footer{
@@ -222,14 +224,6 @@
   .cart-total-row{display:flex; justify-content:space-between; padding:10px 0; font-weight:700;}
   .cart-total-row.grand{font-size:1.15rem; color:var(--pine); border-top:1px solid var(--line); margin-top:6px; padding-top:14px;}
 
-  .detail-media{
-    height:200px; border-radius:14px; background:#F0EBDC;
-    display:flex; align-items:center; justify-content:center; font-size:5rem;
-    overflow:hidden; margin-bottom:18px;
-  }
-  .detail-media img{width:100%; height:100%; object-fit:cover;}
-  .detail-foot{display:flex; align-items:center; justify-content:space-between; margin-top:20px;}
-
   /* Dev dashboard */
   .dev-tabs{display:flex; gap:10px; margin-bottom:18px;}
   .dev-tab{
@@ -253,6 +247,14 @@
   .prod-manage-row .thumb{width:36px; height:36px; border-radius:6px; background:#F0EBDC; display:flex; align-items:center; justify-content:center; font-size:1.2rem; overflow:hidden;}
   .prod-manage-row .thumb img{width:100%; height:100%; object-fit:cover;}
   .prod-manage-row .pname{flex-grow:1; font-weight:600; font-size:.9rem;}
+
+  .detail-media{
+    height:200px; border-radius:14px; background:#F0EBDC;
+    display:flex; align-items:center; justify-content:center; font-size:5rem;
+    overflow:hidden; margin-bottom:18px;
+  }
+  .detail-media img{width:100%; height:100%; object-fit:cover;}
+  .detail-foot{display:flex; align-items:center; justify-content:space-between; margin-top:20px;}
 
   .toast{
     position:fixed; bottom:26px; left:50%; transform:translateX(-50%) translateY(20px);
@@ -292,8 +294,8 @@
     </div>
   </div>
   <div class="route-wrap">
-    <iframe class="hero-map" src="https://www.google.com/maps?q=56.294426,37.608713&z=16&output=embed" width="100%" height="260" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="ReinMarket на карте"></iframe>
-    <a class="map-fallback" href="https://www.google.com/maps?q=56.294426,37.608713" target="_blank" rel="noopener">Открыть в Google Maps →</a>
+    <iframe class="hero-map" src="https://www.google.com/maps?q=56.294832,37.607871&z=16&output=embed" width="100%" height="260" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="ReinMarket на карте"></iframe>
+    <a class="map-fallback" href="https://www.google.com/maps?q=56.294832,37.607871" target="_blank" rel="noopener">Открыть в Google Maps →</a>
   </div>
 </section>
 
@@ -312,8 +314,8 @@
   <div class="info-card">
     <span class="label">Адрес и самовывоз</span>
     <h3>Забрать заказ самим</h3>
-    <p>Россия, Московская область, СНТ Горки-Р, 5-й проезд, дом 148. Бесплатно, обычно готово в течение дня.</p>
-    <p><a href="https://www.google.com/maps?q=56.294426,37.608713" target="_blank" rel="noopener" style="color:var(--berry); font-weight:700; text-decoration:none;">Открыть на карте →</a></p>
+    <p>Россия, Московская область, СНТ Горки-Р, дом 163. Бесплатно, обычно готово в течение дня.</p>
+    <p><a href="https://www.google.com/maps?q=56.294832,37.607871" target="_blank" rel="noopener" style="color:var(--berry); font-weight:700; text-decoration:none;">Открыть на карте →</a></p>
     <span class="label" style="margin-top:16px; display:block;">Доставка по СНТ</span>
     <p>200 ₽ за доставку до вашего участка — просто укажите номер проезда и дома при оформлении заказа.</p>
   </div>
@@ -330,7 +332,7 @@
   <div class="footer-grid">
     <div>
       <div class="logo"><span class="accent">R</span>ein<span class="accent">M</span>arket</div>
-      <small>Россия, Московская область, СНТ Горки-Р, 5-й проезд, дом 148</small>
+      <small>Россия, Московская область, СНТ Горки-Р, дом 163</small>
       <small>+7 985 150-41-03 · Пн–Пт, 10:00–20:30 (МСК)</small>
     </div>
     <button class="dev-btn" id="devBtn">Для разработчиков</button>
@@ -456,48 +458,62 @@
 
 <div class="toast" id="toast"></div>
 
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
-
 <script>
-/* ===================== FIREBASE INIT ===================== */
-let firebaseReady = false;
-let db = null;
-try{
-  const firebaseConfig = {
-    apiKey: "AIzaSyB1-tmhPas4e0yHpYVXtCDBRyrFej4fHVo",
-    authDomain: "reinstore-57341.firebaseapp.com",
-    projectId: "reinstore-57341",
-    storageBucket: "reinstore-57341.firebasestorage.app",
-    messagingSenderId: "1069152557250",
-    appId: "1:1069152557250:web:a8e9a3b3ac5bd1bca2435b"
-  };
-  firebase.initializeApp(firebaseConfig);
-  db = firebase.firestore();
-  firebaseReady = true;
-}catch(e){
-  console.error("Firebase не инициализирован:", e);
-  firebaseReady = false;
-}
-
-/* ===================== STATE ===================== */
-let products = [];
-let cart = [];
+/* ===================== STATE (сохраняется в localStorage браузера) ===================== */
+let products = [
+  {id:1, name:"Помидоры грунтовые", price:180, unit:"за кг", category:"Овощи и фрукты", emoji:"🍅", img:null, desc:"Сладкие грунтовые томаты с соседней теплицы."},
+  {id:2, name:"Огурцы свежие", price:150, unit:"за кг", category:"Овощи и фрукты", emoji:"🥒", img:null, desc:"Хрустящие огурцы, собраны сегодня утром."},
+  {id:3, name:"Яблоки антоновка", price:130, unit:"за кг", category:"Овощи и фрукты", emoji:"🍎", img:null, desc:"Кислые ароматные яблоки для компота и шарлотки."},
+  {id:4, name:"Молоко деревенское 1л", price:110, unit:"за бутылку", category:"Молочные продукты", emoji:"🥛", img:null, desc:"Цельное молоко от местных фермеров."},
+  {id:5, name:"Творог домашний 500г", price:220, unit:"за упаковку", category:"Молочные продукты", emoji:"🧀", img:null, desc:"Жирный домашний творог без добавок."},
+  {id:6, name:"Хлеб бородинский", price:65, unit:"за буханку", category:"Хлеб и выпечка", emoji:"🍞", img:null, desc:"Свежая выпечка из соседней пекарни."},
+  {id:7, name:"Пирожки с картофелем", price:90, unit:"за упаковку (4 шт)", category:"Хлеб и выпечка", emoji:"🥟", img:null, desc:"Домашние пирожки, ещё тёплые."},
+  {id:8, name:"Курица домашняя", price:380, unit:"за кг", category:"Мясо и птица", emoji:"🍗", img:null, desc:"Фермерская курица, выращена без антибиотиков."},
+  {id:9, name:"Квас домашний 1.5л", price:120, unit:"за бутылку", category:"Напитки", emoji:"🥤", img:null, desc:"Освежающий квас на закваске."},
+  {id:10, name:"Мёд липовый 500г", price:450, unit:"за банку", category:"Бакалея", emoji:"🍯", img:null, desc:"Липовый мёд с ближайшей пасеки."}
+];
+let nextProductId = 11;
+let cart = []; // {productId, qty}
 let orders = [];
+let nextOrderId = 1;
 let activeCategory = "Все";
 
-const DEFAULT_PRODUCTS = [
-  {name:"Помидоры грунтовые", price:180, unit:"за кг", category:"Овощи и фрукты", emoji:"🍅", img:null, desc:"Сладкие грунтовые томаты с соседней теплицы."},
-  {name:"Огурцы свежие", price:150, unit:"за кг", category:"Овощи и фрукты", emoji:"🥒", img:null, desc:"Хрустящие огурцы, собраны сегодня утром."},
-  {name:"Яблоки антоновка", price:130, unit:"за кг", category:"Овощи и фрукты", emoji:"🍎", img:null, desc:"Кислые ароматные яблоки для компота и шарлотки."},
-  {name:"Молоко деревенское 1л", price:110, unit:"за бутылку", category:"Молочные продукты", emoji:"🥛", img:null, desc:"Цельное молоко от местных фермеров."},
-  {name:"Творог домашний 500г", price:220, unit:"за упаковку", category:"Молочные продукты", emoji:"🧀", img:null, desc:"Жирный домашний творог без добавок."},
-  {name:"Хлеб бородинский", price:65, unit:"за буханку", category:"Хлеб и выпечка", emoji:"🍞", img:null, desc:"Свежая выпечка из соседней пекарни."},
-  {name:"Пирожки с картофелем", price:90, unit:"за упаковку (4 шт)", category:"Хлеб и выпечка", emoji:"🥟", img:null, desc:"Домашние пирожки, ещё тёплые."},
-  {name:"Курица домашняя", price:380, unit:"за кг", category:"Мясо и птица", emoji:"🍗", img:null, desc:"Фермерская курица, выращена без антибиотиков."},
-  {name:"Квас домашний 1.5л", price:120, unit:"за бутылку", category:"Напитки", emoji:"🥤", img:null, desc:"Освежающий квас на закваске."},
-  {name:"Мёд липовый 500г", price:450, unit:"за банку", category:"Бакалея", emoji:"🍯", img:null, desc:"Липовый мёд с ближайшей пасеки."}
-];
+const STORAGE_KEYS = {
+  products:"reinmarket_products",
+  orders:"reinmarket_orders",
+  nextProductId:"reinmarket_nextProductId",
+  nextOrderId:"reinmarket_nextOrderId"
+};
+
+function saveProducts(){
+  try{
+    localStorage.setItem(STORAGE_KEYS.products, JSON.stringify(products));
+    localStorage.setItem(STORAGE_KEYS.nextProductId, String(nextProductId));
+  }catch(e){ console.error("Не удалось сохранить товары:", e); }
+}
+function saveOrders(){
+  try{
+    const serializable = orders.map(o=>({...o, date:o.date.toISOString()}));
+    localStorage.setItem(STORAGE_KEYS.orders, JSON.stringify(serializable));
+    localStorage.setItem(STORAGE_KEYS.nextOrderId, String(nextOrderId));
+  }catch(e){ console.error("Не удалось сохранить заказы:", e); }
+}
+function loadState(){
+  try{
+    const savedProducts = localStorage.getItem(STORAGE_KEYS.products);
+    if(savedProducts){ products = JSON.parse(savedProducts); }
+    const savedNextProductId = localStorage.getItem(STORAGE_KEYS.nextProductId);
+    if(savedNextProductId){ nextProductId = parseInt(savedNextProductId); }
+    const savedOrders = localStorage.getItem(STORAGE_KEYS.orders);
+    if(savedOrders){
+      orders = JSON.parse(savedOrders).map(o=>({...o, date:new Date(o.date)}));
+    }
+    const savedNextOrderId = localStorage.getItem(STORAGE_KEYS.nextOrderId);
+    if(savedNextOrderId){ nextOrderId = parseInt(savedNextOrderId); }
+  }catch(e){
+    console.error("Не удалось загрузить сохранённые данные:", e);
+  }
+}
 
 /* ===================== HELPERS ===================== */
 function fmt(n){ return n.toLocaleString('ru-RU') + " ₽"; }
@@ -517,70 +533,6 @@ document.querySelectorAll('[data-close]').forEach(btn=>{
 document.querySelectorAll('.overlay').forEach(ov=>{
   ov.addEventListener('click', (e)=>{ if(e.target === ov) ov.classList.add('hidden'); });
 });
-
-/* ===================== FIRESTORE SUBSCRIPTIONS ===================== */
-let localModeIdCounter = 1;
-function useLocalFallback(reason){
-  if(products.length > 0) return; // уже что-то загружено, не перезаписываем
-  console.warn("Локальный режим (без синхронизации):", reason);
-  products = DEFAULT_PRODUCTS.map(p=>({...p, id:"local-"+(localModeIdCounter++)}));
-  renderCategoryFilters();
-  renderCatalog();
-  showToast("Работаем в автономном режиме — товары не синхронизируются между устройствами");
-}
-
-async function initSeedProducts(){
-  if(!firebaseReady) return;
-  try{
-    const seedCheck = await db.collection('meta').doc('seed').get();
-    if(seedCheck.exists) return;
-    
-    const batch = db.batch();
-    DEFAULT_PRODUCTS.forEach(p=>{
-      const ref = db.collection('products').doc();
-      batch.set(ref, p);
-    });
-    batch.set(db.collection('meta').doc('seed'), {done:true, date:new Date()});
-    await batch.commit();
-  }catch(e){
-    console.error("Инициализация товаров:", e);
-  }
-}
-
-function subscribeProducts(){
-  if(!firebaseReady){ useLocalFallback("Firebase не инициализирован"); return; }
-  db.collection('products').onSnapshot(snapshot=>{
-    products = snapshot.docs.map(doc=>({id:doc.id, ...doc.data()}));
-    renderCategoryFilters();
-    renderCatalog();
-    if(!document.getElementById('devDashOverlay').classList.contains('hidden')){
-      renderDevProducts();
-    }
-  }, err=>{
-    console.error("Ошибка загрузки товаров:", err);
-    showToast("Firestore недоступен (проверьте правила безопасности). Показан демо-каталог.");
-    useLocalFallback(err.message);
-  });
-}
-
-function subscribeOrders(){
-  if(!firebaseReady) return;
-  db.collection('orders').orderBy('date','desc').onSnapshot(snapshot=>{
-    orders = snapshot.docs.map(doc=>{
-      const data = doc.data();
-      return {
-        id: doc.id,
-        ...data,
-        date: (data.date && data.date.toDate) ? data.date.toDate() : new Date()
-      };
-    });
-    if(!document.getElementById('devDashOverlay').classList.contains('hidden')){
-      renderDevOrders();
-    }
-  }, err=>{
-    console.error("Ошибка загрузки заказов:", err);
-  });
-}
 
 /* ===================== CATALOG RENDER ===================== */
 function getCategories(){
@@ -629,13 +581,12 @@ function renderCatalog(){
     grid.appendChild(card);
   });
   grid.querySelectorAll('[data-add]').forEach(btn=>{
-    btn.addEventListener('click', ()=> addToCart(btn.dataset.add));
+    btn.addEventListener('click', ()=> addToCart(parseInt(btn.dataset.add)));
   });
   grid.querySelectorAll('[data-detail]').forEach(el=>{
-    el.addEventListener('click', ()=> openProductDetail(el.dataset.detail));
+    el.addEventListener('click', ()=> openProductDetail(parseInt(el.dataset.detail)));
   });
 }
-
 function getCartQty(productId){
   const item = cart.find(c=>c.productId === productId);
   return item ? item.qty : 0;
@@ -671,12 +622,10 @@ function addToCart(productId){
   renderCatalog();
   showToast("Товар добавлен в корзину");
 }
-
 function updateCartCount(){
   const total = cart.reduce((s,c)=>s+c.qty,0);
   document.getElementById('cartCount').textContent = total;
 }
-
 function renderCartModal(){
   const wrap = document.getElementById('cartItemsWrap');
   const emptyNote = document.getElementById('cartEmptyNote');
@@ -713,29 +662,27 @@ function renderCartModal(){
   });
 
   wrap.querySelectorAll('[data-inc]').forEach(b=>b.addEventListener('click', ()=>{
-    const it = cart.find(c=>c.productId===b.dataset.inc); it.qty+=1;
+    const it = cart.find(c=>c.productId===parseInt(b.dataset.inc)); it.qty+=1;
     renderCartModal(); updateCartCount(); renderCatalog();
   }));
   wrap.querySelectorAll('[data-dec]').forEach(b=>b.addEventListener('click', ()=>{
-    const it = cart.find(c=>c.productId===b.dataset.dec);
+    const it = cart.find(c=>c.productId===parseInt(b.dataset.dec));
     it.qty-=1; if(it.qty<=0) cart = cart.filter(c=>c.productId!==it.productId);
     renderCartModal(); updateCartCount(); renderCatalog();
   }));
   wrap.querySelectorAll('[data-remove]').forEach(b=>b.addEventListener('click', ()=>{
-    cart = cart.filter(c=>c.productId!==b.dataset.remove);
+    cart = cart.filter(c=>c.productId!==parseInt(b.dataset.remove));
     renderCartModal(); updateCartCount(); renderCatalog();
   }));
 
   updateTotals();
 }
-
 function getSubtotal(){
   return cart.reduce((s,item)=>{
     const p = products.find(pr=>pr.id===item.productId);
     return p ? s + p.price*item.qty : s;
   },0);
 }
-
 function updateTotals(){
   const subtotal = getSubtotal();
   const deliveryType = document.querySelector('input[name="deliveryType"]:checked')?.value || 'pickup';
@@ -758,7 +705,7 @@ document.querySelectorAll('input[name="deliveryType"]').forEach(radio=>{
   });
 });
 
-document.getElementById('submitOrderBtn').addEventListener('click', async ()=>{
+document.getElementById('submitOrderBtn').addEventListener('click', ()=>{
   const errBox = document.getElementById('checkoutError');
   errBox.textContent = "";
   if(cart.length === 0){ errBox.textContent = "Корзина пуста."; return; }
@@ -782,7 +729,9 @@ document.getElementById('submitOrderBtn').addEventListener('click', async ()=>{
   const subtotal = getSubtotal();
   const fee = deliveryType === 'delivery' ? 200 : 0;
 
-  const orderData = {
+  const order = {
+    id: nextOrderId++,
+    date: new Date(),
     customerName:name,
     customerPhone:phone,
     deliveryType,
@@ -790,62 +739,24 @@ document.getElementById('submitOrderBtn').addEventListener('click', async ()=>{
     items,
     subtotal,
     fee,
-    total: subtotal+fee,
-    date: new Date()
+    total: subtotal+fee
   };
+  orders.push(order);
+  saveOrders();
 
-  document.getElementById('submitOrderBtn').disabled = true;
-  document.getElementById('submitOrderBtn').textContent = "Оформляем...";
-
-  if(!firebaseReady){
-    orderData.id = "local-order-"+Date.now();
-    orderData.date = new Date();
-    orders.unshift(orderData);
-    cart = [];
-    updateCartCount();
-    renderCatalog();
-    closeOverlay('cartOverlay');
-    showToast("Заказ оформлен локально (без синхронизации между устройствами).");
-    document.getElementById('custName').value="";
-    document.getElementById('custPhone').value="";
-    document.getElementById('custProezd').value="";
-    document.getElementById('custDom').value="";
-    document.getElementById('submitOrderBtn').disabled = false;
-    document.getElementById('submitOrderBtn').textContent = "Оформить заказ";
-    return;
-  }
-
-  try{
-    const ref = await db.collection('orders').add(orderData);
-    cart = [];
-    updateCartCount();
-    renderCatalog();
-    closeOverlay('cartOverlay');
-    showToast("Заказ оформлен! Мы свяжемся с вами.");
-    document.getElementById('custName').value="";
-    document.getElementById('custPhone').value="";
-    document.getElementById('custProezd').value="";
-    document.getElementById('custDom').value="";
-  }catch(err){
-    console.error(err);
-    errBox.textContent = "Не удалось оформить заказ. Проверьте интернет.";
-  }finally{
-    document.getElementById('submitOrderBtn').disabled = false;
-    document.getElementById('submitOrderBtn').textContent = "Оформить заказ";
-  }
+  cart = [];
+  updateCartCount();
+  renderCatalog();
+  closeOverlay('cartOverlay');
+  showToast(`Заказ №${order.id} оформлен! Мы свяжемся с вами.`);
+  document.getElementById('custName').value="";
+  document.getElementById('custPhone').value="";
+  document.getElementById('custProezd').value="";
+  document.getElementById('custDom').value="";
 });
 
 /* ===================== DEV: password gate ===================== */
-/* Пароль не хранится в открытом виде — сравнивается его хэш */
-const DEV_PASSWORD_HASH = "aae34325";
-function simpleHash(str){
-  let hash = 5381;
-  for(let i=0; i<str.length; i++){
-    hash = ((hash << 5) + hash) + str.charCodeAt(i);
-    hash = hash & 0xFFFFFFFF;
-  }
-  return (hash >>> 0).toString(16);
-}
+const DEV_PASSWORD = "VadimWolffPro";
 document.getElementById('devBtn').addEventListener('click', ()=>{
   document.getElementById('devPasswordInput').value="";
   document.getElementById('devPassError').textContent="";
@@ -857,7 +768,7 @@ document.getElementById('devPasswordInput').addEventListener('keydown', (e)=>{
 });
 function checkDevPassword(){
   const val = document.getElementById('devPasswordInput').value;
-  if(simpleHash(val) === DEV_PASSWORD_HASH){
+  if(val === DEV_PASSWORD){
     closeOverlay('devPassOverlay');
     openOverlay('devDashOverlay');
     renderDevProducts();
@@ -887,59 +798,31 @@ document.getElementById('addProductBtn').addEventListener('click', ()=>{
   const desc = document.getElementById('newProdDesc').value.trim();
   const emoji = document.getElementById('newProdEmoji').value.trim() || "🛍️";
   const fileInput = document.getElementById('newProdImage');
-  const addBtn = document.getElementById('addProductBtn');
 
   if(!name || !category || isNaN(price) || price <= 0){
     errBox.textContent = "Заполните название, категорию и корректную цену.";
     return;
   }
-  if(fileInput.files && fileInput.files[0] && fileInput.files[0].size > 600*1024){
-    errBox.textContent = "Картинка слишком большая (макс. ~600 КБ).";
-    return;
-  }
 
-  async function finalizeAdd(imgData){
+  function finalizeAdd(imgData){
     const newProduct = {
+      id: nextProductId++,
       name, price, unit:"", category,
       emoji, img: imgData || null, desc
     };
-    addBtn.disabled = true;
-    addBtn.textContent = "Добавляем...";
-
-    if(!firebaseReady){
-      newProduct.id = "local-"+(localModeIdCounter++);
-      products.push(newProduct);
-      renderCategoryFilters();
-      renderCatalog();
-      renderDevProducts();
-      document.getElementById('newProdName').value="";
-      document.getElementById('newProdPrice').value="";
-      document.getElementById('newProdCategory').value="";
-      document.getElementById('newProdDesc').value="";
-      document.getElementById('newProdEmoji').value="";
-      fileInput.value="";
-      showToast("Товар добавлен локально (без синхронизации между устройствами)");
-      addBtn.disabled = false;
-      addBtn.textContent = "Добавить товар";
-      return;
-    }
-
-    try{
-      await db.collection('products').add(newProduct);
-      document.getElementById('newProdName').value="";
-      document.getElementById('newProdPrice').value="";
-      document.getElementById('newProdCategory').value="";
-      document.getElementById('newProdDesc').value="";
-      document.getElementById('newProdEmoji').value="";
-      fileInput.value="";
-      showToast("Товар добавлен на всех устройствах");
-    }catch(err){
-      console.error(err);
-      errBox.textContent = "Не удалось добавить товар (проверьте правила доступа Firestore).";
-    }finally{
-      addBtn.disabled = false;
-      addBtn.textContent = "Добавить товар";
-    }
+    products.push(newProduct);
+    saveProducts();
+    activeCategory = "Все";
+    renderCategoryFilters();
+    renderCatalog();
+    renderDevProducts();
+    document.getElementById('newProdName').value="";
+    document.getElementById('newProdPrice').value="";
+    document.getElementById('newProdCategory').value="";
+    document.getElementById('newProdDesc').value="";
+    document.getElementById('newProdEmoji').value="";
+    fileInput.value="";
+    showToast("Товар добавлен в каталог");
   }
 
   if(fileInput.files && fileInput.files[0]){
@@ -965,22 +848,12 @@ function renderDevProducts(){
     wrap.appendChild(row);
   });
   wrap.querySelectorAll('[data-delprod]').forEach(b=>{
-    b.addEventListener('click', async ()=>{
-      if(!firebaseReady){
-        products = products.filter(p=>p.id !== b.dataset.delprod);
-        renderCategoryFilters();
-        renderCatalog();
-        renderDevProducts();
-        showToast("Товар удалён локально");
-        return;
-      }
-      try{
-        await db.collection('products').doc(b.dataset.delprod).delete();
-        showToast("Товар удалён со всех устройств");
-      }catch(err){
-        console.error(err);
-        showToast("Ошибка удаления товара");
-      }
+    b.addEventListener('click', ()=>{
+      products = products.filter(p=>p.id !== parseInt(b.dataset.delprod));
+      saveProducts();
+      renderDevProducts();
+      renderCategoryFilters();
+      renderCatalog();
     });
   });
 }
@@ -990,21 +863,22 @@ function renderDevOrders(){
   const wrap = document.getElementById('devOrderList');
   const emptyNote = document.getElementById('ordersEmptyNote');
   wrap.innerHTML = "";
-  if(orders.length === 0){
+  const sorted = [...orders].sort((a,b)=> b.date - a.date);
+  if(sorted.length === 0){
     emptyNote.classList.remove('hidden');
     return;
   }
   emptyNote.classList.add('hidden');
-  orders.forEach(o=>{
+  sorted.forEach(o=>{
     const card = document.createElement('div');
     card.className = 'order-card';
     const itemsHtml = o.items.map(it=>`<li>${it.name} × ${it.qty} — ${fmt(it.lineTotal)}</li>`).join("");
     const deliveryHtml = o.deliveryType === 'delivery'
       ? `<div class="order-meta">Доставка: ${o.address.proezd}, дом ${o.address.dom} (+${fmt(o.fee)})</div>`
-      : `<div class="order-meta">Самовывоз (СНТ Горки-Р, 5-й проезд, дом 148)</div>`;
+      : `<div class="order-meta">Самовывоз (СНТ Горки-Р, дом 163)</div>`;
     card.innerHTML = `
       <div class="order-head">
-        <span class="order-id">Заказ №${o.id.substring(0,8)}</span>
+        <span class="order-id">Заказ №${o.id}</span>
         <span class="order-date mono">${o.date.toLocaleString('ru-RU')}</span>
       </div>
       <div class="order-meta">${o.customerName} · ${o.customerPhone}</div>
@@ -1016,38 +890,19 @@ function renderDevOrders(){
     wrap.appendChild(card);
   });
   wrap.querySelectorAll('[data-delorder]').forEach(b=>{
-    b.addEventListener('click', async ()=>{
-      if(!firebaseReady){
-        orders = orders.filter(o=>o.id !== b.dataset.delorder);
-        renderDevOrders();
-        showToast("Заказ удалён локально");
-        return;
-      }
-      try{
-        await db.collection('orders').doc(b.dataset.delorder).delete();
-        showToast("Заказ удалён");
-      }catch(err){
-        console.error(err);
-        showToast("Ошибка удаления заказа");
-      }
+    b.addEventListener('click', ()=>{
+      orders = orders.filter(o=>o.id !== parseInt(b.dataset.delorder));
+      saveOrders();
+      renderDevOrders();
     });
   });
 }
 
 /* ===================== INIT ===================== */
-(async ()=>{
-  try{
-    await initSeedProducts();
-    subscribeProducts();
-    subscribeOrders();
-  }catch(e){
-    console.error("Ошибка инициализации:", e);
-    useLocalFallback(e.message);
-  }
-  renderCategoryFilters();
-  renderCatalog();
-  updateCartCount();
-})();
+loadState();
+renderCategoryFilters();
+renderCatalog();
+updateCartCount();
 </script>
 </body>
 </html>
